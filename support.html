@@ -28,8 +28,14 @@
         }
         .button-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
             margin-top: 20px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .command-button {
             cursor: pointer;
@@ -38,6 +44,7 @@
             border-radius: 5px;
             background-color: rgba(0, 0, 0, 0);
             border: 2px solid #ffffff;
+            margin-bottom: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,27 +65,38 @@
 </head>
 <body>
   <div class="center">
-      <div class="button-container">
-          <div class="command-button" onclick="toggleMenu('h')">.h</div>
-          <div class="command-button" onclick="toggleMenu('ban')">.ban</div>
-          <div class="command-button" onclick="toggleMenu('kick')">.kick</div>
+      <div class="button-container" id="button-container">
+          <div class="column" id="column-1"></div>
+          <div class="column" id="column-2"></div>
       </div>
-      <div id="h-menu" class="menu" onclick="copyToClipboard('.h')">
-          <p>Command: .h</p>
-          <p>Description: This is the help command</p>
-      </div>
-      <div id="ban-menu" class="menu" onclick="copyToClipboard('.ban')">
-          <p>Command: .ban @trashstar reason</p>
-          <p>Description: Ban members</p>
-      </div>
-      <div id="kick-menu" class="menu" onclick="copyToClipboard('.kick')">
-          <p>Command: .kick @trashstar reason</p>
-          <p>Description: kick members</p>
-      </div>
-      
   </div>
 
   <script>
+    function addButton(command, description, columnId) {
+        var column = document.getElementById(columnId);
+        var button = document.createElement('div');
+        button.className = 'command-button';
+        button.textContent = '.' + command;
+        button.onclick = function() {
+            toggleMenu(command);
+        };
+        column.appendChild(button);
+
+        var menu = document.createElement('div');
+        menu.id = command + '-menu';
+        menu.className = 'menu';
+        menu.onclick = function() {
+            copyToClipboard('.' + command);
+        };
+        menu.innerHTML = '<p>Command: .' + command + '</p>' +
+                        '<p>Description: ' + description + '</p>';
+        document.body.appendChild(menu);
+    }
+
+    addButton('h', 'This is the help command.', 'column-1');
+    addButton('ban', 'Ban members', 'column-1');
+    addButton('kick', 'Kick members', 'column-2');
+
     function toggleMenu(command) {
         var menu = document.getElementById(command + "-menu");
         menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';

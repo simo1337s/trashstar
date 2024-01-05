@@ -68,6 +68,9 @@
       <div class="button-container" id="button-container">
           <div class="column" id="column-1"></div>
           <div class="column" id="column-2"></div>
+          <div class="column" id="column-3"></div>
+          <div class="column" id="column-4"></div>
+          <div class="column" id="column-5"></div>
       </div>
   </div>
 
@@ -95,7 +98,10 @@
 
     addButton('h', 'This is the help command.', 'column-1');
     addButton('ban', 'Ban members', 'column-1');
-    addButton('kick', 'Kick members', 'column-2');
+    addButton('kick', 'Kick members', 'column-1');
+    addButton('roblox', 'shows a roblox users profile details', 'column-2');
+    addButton('robloxfits', 'shows a roblox users outfits', 'column-2');
+    addButton('robloxcurrentoutfit', 'show a roblox users current outfit', 'column-1');
 
     function toggleMenu(command) {
         var menu = document.getElementById(command + "-menu");

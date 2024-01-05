@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trashstar Support</title>
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartcraft.com%2Fimages%2Ftransparent-circle-black.png&f=1&nofb=1&ipt=15c201a69ecae5cde0dff42427722791440df20bb7308cd70477edaedacadb96&ipo=images">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap">
+
+    <style>
+        body {
+            background-color: #0d0d0e;
+            background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F81%2F0d%2F7f%2F810d7f716a950a63a9c0dba6aacb1a73.gif&f=1&nofb=1&ipt=0c75fd4bff35772fd728de224b5a3af5a9960fd01aee537d68d64cba5fdd4cae&ipo=images) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .command-button {
+            cursor: pointer;
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0);
+            border: 2px solid #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .menu {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+  <div class="center">
+      <div class="button-container">
+          <div class="command-button" onclick="toggleMenu('h')">.h</div>
+          <div class="command-button" onclick="toggleMenu('ban')">.ban</div>
+          <div class="command-button" onclick="toggleMenu('kick')">.kick</div>
+      </div>
+      <div id="h-menu" class="menu" onclick="copyToClipboard('.h')">
+          <p>Command: .h</p>
+          <p>Description: This is the help command</p>
+      </div>
+      <div id="ban-menu" class="menu" onclick="copyToClipboard('.ban')">
+          <p>Command: .ban @trashstar reason</p>
+          <p>Description: Ban members</p>
+      </div>
+      <div id="kick-menu" class="menu" onclick="copyToClipboard('.kick')">
+          <p>Command: .kick @trashstar reason</p>
+          <p>Description: kick members</p>
+      </div>
+      
+  </div>
+
+  <script>
+    function toggleMenu(command) {
+        var menu = document.getElementById(command + "-menu");
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        alert("Copied to clipboard: " + text);
+    }
+
+    document.addEventListener('click', function(event) {
+        var isButton = event.target.classList.contains('command-button');
+        if (!isButton) {
+            var menus = document.getElementsByClassName('menu');
+            Array.from(menus).forEach(function(menu) {
+                menu.style.display = 'none';
+            });
+        }
+    });
+  </script>
+</body>
+</html>

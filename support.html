@@ -103,7 +103,9 @@
     addButton('robloxfits', 'shows a roblox users outfits', 'column-2');
     addButton('robloxcurrentoutfit', 'show a roblox users current outfit', 'column-2');
     addButton('clear', '.clear @user (number)', 'column-3');
-
+    addButton('user', 'displays discord user information (.user or u/ui (mention user or user id)', 'column-4');
+    addButton('banner', 'displays discord users banner (.banner or bn (mention user or user id)', 'column-4');
+    addButton('avatar', 'displays discord users avatar (.avatar or av (mention user or user id)', 'column-4');
     function toggleMenu(command) {
         var menu = document.getElementById(command + "-menu");
         menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';

@@ -57,6 +57,7 @@
             color: #ffffff;
             font-size: 1em;
             transition: background-color 0.3s;
+            text-align: center;
         }
 
         .menu {
@@ -90,7 +91,7 @@
             var column = document.getElementById(columnId);
             var button = document.createElement('div');
             button.className = 'command-button';
-            button.textContent = '.' + command;
+            button.textContent = command;
             button.onclick = function () {
                 toggleMenu(command);
             };
@@ -100,7 +101,7 @@
             menu.id = command + '-menu';
             menu.className = 'menu';
             menu.onclick = function () {
-                copyToClipboard('.' + command);
+                copyToClipboard(command);
             };
             menu.innerHTML = '<p>Command: .' + command + '</p>' +
                 '<p>Description: ' + description + '</p>';
@@ -120,7 +121,6 @@
                     column.style.display = "flex";
                 } else {
                     button.style.display = "none";
-                    // Hide the column if no buttons are visible
                     column.style.display = Array.from(column.children).some(btn => btn.style.display === "block") ? "flex" : "none";
                 }
             });
@@ -145,8 +145,7 @@
                 });
             }
         });
-        
-        // Add your addButton calls here
+
         addButton('help', 'This is the help command.', 'column-1');
         addButton('ban', 'Ban members', 'column-1');
         addButton('kick', 'Kick members', 'column-1');

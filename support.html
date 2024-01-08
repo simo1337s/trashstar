@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trashstar Support</title>
-    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartcraft.com%2Fimages%2Ftransparent-circle-black.png&f=1&nofb=1&ipt=15c201a69ecae5cde0dff42427722791440df20bb7308cd70477edaedacadb96&ipo=images">
+    <link rel="icon"
+        href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartcraft.com%2Fimages%2Ftransparent-circle-black.png&f=1&nofb=1&ipt=15c201a69ecae5cde0dff42427722791440df20bb7308cd70477edaedacadb96&ipo=images">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap">
 
     <style>
@@ -20,23 +22,27 @@
             height: 100vh;
             font-family: 'Roboto', sans-serif;
         }
+
         .center {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
+
         .button-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 20px;
         }
+
         .column {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .command-button {
             cursor: pointer;
             width: 100px;
@@ -52,6 +58,7 @@
             font-size: 1em;
             transition: background-color 0.3s;
         }
+
         .menu {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.9);
@@ -63,73 +70,98 @@
         }
     </style>
 </head>
+
 <body>
-  <div class="center">
-      <div class="button-container" id="button-container">
-          <div class="column" id="column-1"></div>
-          <div class="column" id="column-2"></div>
-          <div class="column" id="column-3"></div>
-          <div class="column" id="column-4"></div>
-          <div class="column" id="column-5"></div>
-          <div class="column" id="column-6"></div>
-          <div class="column" id="column-7"></div>
-      </div>
-  </div>
+    <div class="center">
+        <input type="text" id="searchInput" placeholder="Search commands..." oninput="filterCommands()">
+        <div class="button-container" id="button-container">
+            <div class="column" id="column-1"></div>
+            <div class="column" id="column-2"></div>
+            <div class="column" id="column-3"></div>
+            <div class="column" id="column-4"></div>
+            <div class="column" id="column-5"></div>
+            <div class="column" id="column-6"></div>
+            <div class="column" id="column-7"></div>
+        </div>
+    </div>
 
-  <script>
-    function addButton(command, description, columnId) {
-        var column = document.getElementById(columnId);
-        var button = document.createElement('div');
-        button.className = 'command-button';
-        button.textContent = '.' + command;
-        button.onclick = function() {
-            toggleMenu(command);
-        };
-        column.appendChild(button);
+    <script>
+        function addButton(command, description, columnId) {
+            var column = document.getElementById(columnId);
+            var button = document.createElement('div');
+            button.className = 'command-button';
+            button.textContent = '.' + command;
+            button.onclick = function () {
+                toggleMenu(command);
+            };
+            column.appendChild(button);
 
-        var menu = document.createElement('div');
-        menu.id = command + '-menu';
-        menu.className = 'menu';
-        menu.onclick = function() {
-            copyToClipboard('.' + command);
-        };
-        menu.innerHTML = '<p>Command: .' + command + '</p>' +
-                        '<p>Description: ' + description + '</p>';
-        document.body.appendChild(menu);
-    }
+            var menu = document.createElement('div');
+            menu.id = command + '-menu';
+            menu.className = 'menu';
+            menu.onclick = function () {
+                copyToClipboard('.' + command);
+            };
+            menu.innerHTML = '<p>Command: .' + command + '</p>' +
+                '<p>Description: ' + description + '</p>';
+            document.body.appendChild(menu);
+        }
 
-    addButton('help', 'This is the help command.', 'column-1');
-    addButton('ban', 'Ban members', 'column-1');
-    addButton('kick', 'Kick members', 'column-1');
-    addButton('roblox', 'shows a roblox users profile details', 'column-2');
-    addButton('robloxfits', 'shows a roblox users outfits (rfs)', 'column-2');
-    addButton('robloxfit', 'show a roblox users current outfit (rf)', 'column-2');
-    addButton('clear', '.clear @user (number)', 'column-3');
-    addButton('user', 'displays discord user information (.user or u/ui (mention user or user id)', 'column-4');
-    addButton('banner', 'displays discord users banner (.banner or bn (mention user or user id)', 'column-4');
-    addButton('avatar', 'displays discord users avatar (.avatar or av (mention user or user id)', 'column-4');
-    addButton('tiktok', 'display a tiktok user info (.tiktok or tt {username}', 'column-5');
-    addButton('tiktok vid', 'send any tiktok video url and it will auto upload it no cmd needed!', 'column-5');
-    addButton('fortnitestats', '.fortnitestats platform(epic,xbl,psn) username (.fs xbl username)', 'column-3');
-    function toggleMenu(command) {
-        var menu = document.getElementById(command + "-menu");
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    }
+        function filterCommands() {
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var buttons = document.getElementsByClassName("command-button");
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text);
-        alert("Copied to clipboard: " + text);
-    }
+            Array.from(buttons).forEach(function (button) {
+                var buttonText = button.textContent.toLowerCase();
+                var column = button.parentElement;
 
-    document.addEventListener('click', function(event) {
-        var isButton = event.target.classList.contains('command-button');
-        if (!isButton) {
-            var menus = document.getElementsByClassName('menu');
-            Array.from(menus).forEach(function(menu) {
-                menu.style.display = 'none';
+                if (buttonText.includes(input)) {
+                    button.style.display = "block";
+                    column.style.display = "flex";
+                } else {
+                    button.style.display = "none";
+                    // Hide the column if no buttons are visible
+                    column.style.display = Array.from(column.children).some(btn => btn.style.display === "block") ? "flex" : "none";
+                }
             });
         }
-    });
-  </script>
+
+        function toggleMenu(command) {
+            var menu = document.getElementById(command + "-menu");
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            alert("Copied to clipboard: " + text);
+        }
+
+        document.addEventListener('click', function (event) {
+            var isButton = event.target.classList.contains('command-button');
+            if (!isButton) {
+                var menus = document.getElementsByClassName('menu');
+                Array.from(menus).forEach(function (menu) {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+        
+        // Add your addButton calls here
+        addButton('help', 'This is the help command.', 'column-1');
+        addButton('ban', 'Ban members', 'column-1');
+        addButton('kick', 'Kick members', 'column-1');
+        addButton('roblox', 'shows a roblox users profile details', 'column-2');
+        addButton('robloxfits', 'shows a roblox users outfits (rfs)', 'column-2');
+        addButton('robloxfit', 'show a roblox users current outfit (rf)', 'column-2');
+        addButton('clear', '.clear @user (number)', 'column-3');
+        addButton('user', 'displays discord user information (.user or u/ui (mention user or user id)', 'column-4');
+        addButton('banner', 'displays discord users banner (.banner or bn (mention user or user id)', 'column-4');
+        addButton('avatar', 'displays discord users avatar (.avatar or av (mention user or user id)', 'column-4');
+        addButton('tiktok', 'display a tiktok user info (.tiktok or tt {username}', 'column-5');
+        addButton('tiktok vid', 'send any tiktok video url and it will auto upload it no cmd needed!', 'column-5');
+        addButton('fortnitestats', '.fortnitestats platform(epic,xbl,psn) username (.fs xbl username)', 'column-3');
+        addButton('meow', 'sends a random cat gif', 'column-3');
+    </script>
 </body>
+
 </html>
